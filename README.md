@@ -55,6 +55,9 @@ npm run build
 |   |-- store                        // vuex的状态管理
 |       |-- index.js                 // 加载各种store模块
 |   |-- utils                        // 公共的js方法,工具类
+|       |-- index.js                 // 测试工具方法
+|   |-- lib                          // 公共的插件调用,初始化
+|       |-- index.js                 // 测试插件调用
 |   |-- App.vue                      // 页面入口文件
 |   |-- main.js                      // 程序入口文件，加载各种公共组件
 |   |-- registerServiceWorker.js     // 页面缓存设置配置文件
@@ -70,4 +73,4 @@ npm run build
 
 ## License
 
-MIT
+**MIT**
