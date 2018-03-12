@@ -24,9 +24,7 @@ npm run build
 
 运行命令全集可参考<https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md>
 
-打包整体目录
-
-### 项目目录说明
+## 项目目录说明
 
 ``` project
 .
