@@ -7,6 +7,9 @@
 <script>
 export default {
     name: "Freecontent",
+    data:{
+        state:0
+    },
     props: {
         msg: String
     }
