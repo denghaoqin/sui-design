@@ -55,6 +55,5 @@ li {
 }
 a {
   color: #42b983;
-  margin:0;
 }
 </style>
