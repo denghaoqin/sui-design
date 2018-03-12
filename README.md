@@ -4,8 +4,8 @@
 
 ## 初始化
 
-``` init
-npm init
+``` install
+npm install
 ```
 
 用于安装项目中所需要的详细模块,初始化整个项目
