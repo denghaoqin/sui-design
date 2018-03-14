@@ -1,13 +1,13 @@
 <template>
-  <div class="phone-design">
-    <phone-header></phone-header>
-    <div class="main">
-      <phone-toolbar></phone-toolbar>
-      <phone-artboard></phone-artboard>
-      <phone-settings></phone-settings>
+    <div class="phone-design">
+        <phone-header></phone-header>
+        <div class="container main">
+            <phone-toolbar></phone-toolbar>
+            <phone-artboard></phone-artboard>
+            <phone-settings></phone-settings>
+        </div>
+        <drop></drop>
     </div>
-    <drop></drop>
-  </div>
 </template>
 
 <script>
@@ -26,17 +26,30 @@ export default {
     components: {
         Drop,
         PhoneHeader,
-        PhoneToolbar
+        PhoneToolbar,
+        PhoneArtboard,
+        PhoneSettings
     }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/utils/_mixins.scss";
+
 .phone-design {
     position: relative;
+    box-sizing: border-box;
+    @include respond-to("medium") {
+        height: auto;
+    }
 
     .main {
-      display:flex;
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 820px;
+        @include respond-to("medium") {
+            height: 628px;
+        }
     }
 }
 </style>
