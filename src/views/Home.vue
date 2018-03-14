@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <img src="../assets/images/logo.png">
+    <freecontent width="100%" isempty="true" titleicon="test" showborder="false" showtitle="true"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Freecontent from '@/components/layout/freecontent'
 export default {
   name: 'home',
   components: {
-    
+    Freecontent
   }
 }
 </script>
