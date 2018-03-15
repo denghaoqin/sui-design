@@ -4,17 +4,9 @@
             <!-- 标题栏 -->
             <div v-show="showtitle == 'true'" class="header" :style="titleStyle">
                 <div class="header-content">
-                    <!-- 标题栏图标 -->
-                    <div v-show="showtitleicon == 'true'" class="header-content-icon">
-                        <span :class="titleicon"></span>
-                    </div>
-                    <!-- 主标题名称 -->
+                    <!-- 标题名称 -->
                     <div class="header-content-maintitle">
                         {{maintitle}}
-                    </div>
-                    <!-- 副标题名称 -->
-                    <div class="header-content-subtitle">
-                        {{subtitle}}
                     </div>
                 </div>
             </div>
@@ -28,7 +20,8 @@
                         容器内模块可以随意拖动
                     </div>
                 </div>
-                <div v-show="!(isempty=='true')" class="main">
+                <div v-show="!(isempty == 'true')" class="main">
+                    
                 </div>
             </div>
             <!-- 设置图标 -->
@@ -40,7 +33,7 @@
         </div>
         <div class="setconfig" v-show="showsetconfigflag" v-on:mouseover="showsetconfigcontent()" v-on:mouseout="hidesetconfigcontent()">
             <div class="setconfigcontent">
-                <div class="setbtn">设置自由容器</div>
+                <div class="setbtn">编辑通栏模块</div>
                 <div class="settitle"></div>
                 <div class="deletemodule"></div>
             </div>
@@ -50,44 +43,33 @@
 </template>
 
 <script>
+import Freecontent from '@/components/layout/Freecontent'
 export default {
     data(){
         return {
             isHover: false, //判断鼠标是否移入，显示边框
-            showsetconfigflag: false, //判断鼠标是否移入，显示设置自由容器
+            showsetconfigflag: false, //判断鼠标是否移入，显示编辑通栏模块
             bodyStyle:{
-                width: this.width,
                 height: this.height
             },
             containerStyle:{     //组件样式
-                marginTop:this.top+'px',
-                marginBottom:this.bottom+'px',
-                marginLeft:this.left+'px',
-                marginRight:this.right+'px',
+                height:this.height+'px',
                 border: this.showborder == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff",
                 borderTop: this.bordertop == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
                 borderBottom: this.borderbottom == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
-                borderLeft: this.borderleft == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
-                borderRight: this.borderright == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
                 backgroundColor: this.showcontentbg == "true" ? this.contentbgcolor : "#fff",
                 backgroundImage: this.showcontentbg == "true" ? ('url('+this.contentbgphoto+') no-repeat') : "none",
-                opacity: this.showcontentbg == "true" ? this.contentbgopacity : "1"
             },
             titleStyle:{     //组件内标题样式
                height: this.titleheight+'px',
-               background: this.titlebg == "true" ? this.titlebgcolor : "#fff",
-               backgroundImage: this.titlebg == "true" ? ('url('+this.titlebgpic+') no-repeat') : "#fff",
             },
             contentStyle:{
+                width: this.contentwidth+'px',
                 height: Number(this.height)- Number(this.titleheight)+'px'
             }
         }
     },
     props:{
-        width:{
-            type: String,      //组件宽度
-            default: '100%'
-        },
         isempty:{
             type: String,     //组件内是否有内容
             default: 'true'
@@ -99,22 +81,6 @@ export default {
         showtitle:{
             type: String,     //是否显示标题
             default: 'false'
-        },
-        top:{
-            type: String,     //组件上外边距
-            default: '0'
-        },
-        bottom:{
-            type: String,     //组件下外边距
-            default: '0'
-        },
-        left:{
-            type: String,     //组件左外边距
-            default: '0'
-        },
-        right:{
-            type: String,     //组件右外边距
-            default: '0'
         },
         showborder:{
             type: String,     //组件是否显示边框
@@ -134,27 +100,15 @@ export default {
         },
         bordertop:{
             type: String,    //上边框
-            default: "false"
+            default: "true"
         },
         borderbottom:{
             type: String,    //下边框
-            default: "false"
-        },
-        borderleft:{
-            type: String,     //左边框
-            default: "false"
-        },
-        borderright:{
-            type: String,     //右边框
-            default: "false" 
+            default: "true"
         },
         showcontentbg:{
             type: String,     //是否显示内容区背景
             default: "false"
-        },
-        contentbgopacity:{
-            type: String,      //内容区背景透明度
-            default: "1"
         },
         contentbgphoto:{
             type: String,      //内容区背景图片
@@ -166,55 +120,23 @@ export default {
         },
         maintitle:{
             type: String,     //主标题
-            default: "自由容器"
+            default: "通栏模块"
         },
-        subtitle:{
-            type: String,    //副标题
-            default: ""
+        contentwidth:{
+            type: String,     //内容区宽度
+            default: "1200"
         },
         titleheight:{
             type: String,    //标题栏高度
             default: "48"
         },
-        titlebg:{
-            type: String,    //标题栏是否显示背景
-            default: "false"
-        },
-        titlebgcolor:{
-            type: String,     //标题栏 背景颜色
-            default: "#fff"
-        },
-        titlebgpic:{
-            type: String,      //标题栏背景图片
-            default: ""
-        },
-        showtitleicon:{
-            type: String,      //是否显示标题图标
-            default: ""
-        },
-        titleicon:{
-            type: String,      //标题图标
-            default: ""
-        }
     },
     watch:{
-        width(val){
-            this.containerStyle.width = val;
-        },
         height(val){
             this.containerStyle.height = val;
         },
-        marginTop(val){
-            this.containerStyle.marginTop = val;
-        },
-        marginBottom(val){
-            this.containerStyle.marginBottom = val;
-        },
-        marginLeft(val){
-            this.containerStyle.marginLeft = val;
-        },
-        marginRight(val){
-            this.containerStyle.marginRight = val;
+        contentwidth(val){
+            this.contentStyle.width = val;
         },
         titleheight(val){
             this.titleStyle.height = val;
@@ -237,12 +159,6 @@ export default {
         borderbottom(val){
             this.containerStyle.borderBottom = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
         },
-        borderleft(val){
-            this.containerStyle.borderLeft = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
-        },
-        borderright(val){
-            this.containerStyle.borderRight = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
-        },
         showcontentbg(val){
             this.containerStyle.backgroundColor = (val == "true" ? this.contentbgcolor : "#fff");
         },
@@ -251,18 +167,6 @@ export default {
         },
         contentbgphoto(val){
             this.containerStyle.backgroundImage = (this.showcontentbg == "true" ? ('url('+this.contentbgphoto+') no-repeat') : "none");
-        },
-        contentbgopacity(val){
-            this.containerStyle.opacity = (this.showcontentbg == "true" ? this.contentbgopacity : "0");
-        },
-        titlebg(val){
-            this.titleStyle.backgroundColor = (val == "true" ? this.titlebgcolor : "#fff");
-        },
-        titlebgcolor(val){
-            this.titleStyle.backgroundColor = (this.titlebg == "true" ? this.titlebgcolor : "#fff");
-        },
-        titlebgpic(val){
-            this.containerStyle.backgroundImage = (this.titlebg == "true" ? ('url('+this.titlebgpic+') no-repeat') : "none");
         }
     },
     methods:{   
@@ -286,6 +190,9 @@ export default {
             this.showsetconfigflag = false; 
             this.isHover = false; 
         }
+    },
+    components: {
+        Freecontent
     }
 };
 
@@ -295,16 +202,16 @@ export default {
         margin: 0 auto;
         position: relative;
         .container{
-            width: auto;
             padding: 0px;
-            overflow: hidden;
             margin: 0 auto;
+            width: 100%;
+            overflow: hidden;
             position: relative;
             // 内容区样式
             .content{
                 position: relative;
-                width: 100%;
                 height: 100%;
+                margin: 0 auto;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -443,5 +350,5 @@ export default {
                 }
             }
         }
-    }  
+    }
 </style>
