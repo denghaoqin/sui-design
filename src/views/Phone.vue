@@ -50,9 +50,6 @@ export default {
         @include respond-to("medium") {
             height: 628px;
         }
-        @include respond-to(large) {
-            height: 755px
-        }
     }
 }
 </style>

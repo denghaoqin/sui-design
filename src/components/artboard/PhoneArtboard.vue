@@ -11,6 +11,8 @@
 
 <script>
 import phoneBg from "../../assets/images/phone-bg.png";
+import 'element-ui/lib/theme-chalk/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default {
     name: "phone-artboard",
@@ -21,7 +23,7 @@ export default {
     },
     computed:{
         iframeSrc:function(){
-            return 'http://'+window.location.host+window.location.pathname+"/#/phone-design"
+            return 'http://'+window.location.host+window.location.pathname+"#/phone-design"
         }
     }
 };
