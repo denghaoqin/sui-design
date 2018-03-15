@@ -43,6 +43,8 @@ export default {
         height: auto;
     }
 
+    asdd
+
     .main {
         display: flex;
         flex-wrap: wrap;
