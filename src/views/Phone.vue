@@ -43,7 +43,7 @@ export default {
         height: auto;
     }
 
-    asdd
+    sdsdsdsd
 
     .main {
         display: flex;
