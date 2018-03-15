@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import Freecontent from '@/components/layout/freecontent'
+import Freecontent from '@/components/layout/Freecontent'
 export default {
   name: 'home',
   components: {
