@@ -1,9 +1,9 @@
 <template>
     <div class="phone-artboard">
         <div class="main" :style="{background:`url(${phoneBg}) no-repeat 0 0`,backgroundSize:'contain'}">
-            <iframe :src="iframeSrc" class="phone-view">
-                <div>这是iframe内容</div>
-            </iframe>
+            <div class="phone-view">
+                这是设计页面
+            </div>
         </div>
     </div>
 </template>
