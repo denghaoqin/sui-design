@@ -17,7 +17,6 @@
                     :index="index"
                     :wrapper="list"
                     effect-allowed="move"
-
                     :selected="selectedEvent"
                     :dragstart="handleDragstart"
                     :dragend="handleDragend"
