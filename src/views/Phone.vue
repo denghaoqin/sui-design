@@ -43,14 +43,15 @@ export default {
         height: auto;
     }
 
-    sdsdsdsd
-
     .main {
         display: flex;
         flex-wrap: wrap;
         max-height: 820px;
         @include respond-to("medium") {
             height: 628px;
+        }
+        @include respond-to(large) {
+            height: 755px
         }
     }
 }

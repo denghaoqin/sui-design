@@ -31,7 +31,7 @@ export default {
 .phone-artboard {
     padding-top: 20px;
     padding-bottom: 20px;
-    min-width: 500px;
+    flex:1;
 
     .main {
         width: 292px;
