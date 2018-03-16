@@ -4,32 +4,15 @@
             <!-- 标题栏 -->
             <div v-show="showtitle == 'true'" class="header" :style="titleStyle">
                 <div class="header-content">
-                    <!-- 标题栏图标 -->
-                    <div v-show="showtitleicon == 'true'" class="header-content-icon">
-                        <span :class="titleicon"></span>
-                    </div>
                     <!-- 主标题名称 -->
                     <div class="header-content-maintitle">
                         {{maintitle}}
-                    </div>
-                    <!-- 副标题名称 -->
-                    <div class="header-content-subtitle">
-                        {{subtitle}}
                     </div>
                 </div>
             </div>
             <!-- 内容区 -->
             <div class="content" :style="contentStyle">
-                <div v-show="isempty=='true'" class="empty">
-                    <div class="add-modal-btn">
-                        添加模块
-                    </div>
-                    <div class="add-modal-details">
-                        容器内模块可以随意拖动
-                    </div>
-                </div>
-                <div v-show="!(isempty=='true')" class="main">
-                </div>
+                <freecontent v-for="num in parseInt(freecontentnum)" :key="num" titleheight="0" :height="getmoduleheight()" :style="contentmoduleStyle" borderwidth="1" bordercolor="#5874d8" borderstyle="dotted"/>
             </div>
             <!-- 设置图标 -->
             <div class="set" v-show="isHover">
@@ -40,7 +23,7 @@
         </div>
         <div class="setconfig" v-show="showsetconfigflag" v-on:mouseover="showsetconfigcontent()" v-on:mouseout="hidesetconfigcontent()">
             <div class="setconfigcontent">
-                <div class="setbtn">设置自由容器</div>
+                <div class="setbtn">编辑多列排版</div>
                 <div class="settitle"></div>
                 <div class="deletemodule"></div>
             </div>
@@ -50,6 +33,7 @@
 </template>
 
 <script>
+import Freecontent from '@/components/layout/Freecontent'
 export default {
     data(){
         return {
@@ -69,7 +53,7 @@ export default {
                 borderBottom: this.borderbottom != "false" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
                 borderLeft: this.borderleft != "false" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
                 borderRight: this.borderright != "false" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
-                backgroundColor:  this.contentbgcolor ,
+                backgroundColor: this.contentbgcolor,
                 backgroundImage: 'url('+this.contentbgphoto+') no-repeat',
                 opacity: this.contentbgopacity
             },
@@ -80,6 +64,9 @@ export default {
             },
             contentStyle:{
                 height: Number(this.height)- Number(this.titleheight)+'px'
+            },
+            contentmoduleStyle:{
+                marginRight: this.freecontentspace+'px'
             }
         }
     },
@@ -87,6 +74,14 @@ export default {
         width:{
             type: String,      //组件宽度
             default: '100%'
+        },
+        freecontentnum:{
+            type: String,      //组件宽度
+            default: ''
+        },
+        freecontentspace:{
+            type: String,
+            default: ''
         },
         isempty:{
             type: String,     //组件内是否有内容
@@ -166,7 +161,7 @@ export default {
         },
         maintitle:{
             type: String,     //主标题
-            default: "自由容器"
+            default: "多列排版"
         },
         subtitle:{
             type: String,    //副标题
@@ -186,15 +181,7 @@ export default {
         },
         titlebgpic:{
             type: String,      //标题栏背景图片
-            default: ""
-        },
-        showtitleicon:{
-            type: String,      //是否显示标题图标
-            default: ""
-        },
-        titleicon:{
-            type: String,      //标题图标
-            default: ""
+            default: "none"
         }
     },
     watch:{
@@ -249,13 +236,13 @@ export default {
         //     this.containerStyle.backgroundColor = (val == "true" ? this.contentbgcolor : "#fff");
         // },
         contentbgcolor(val){
-            this.containerStyle.backgroundColor = this.contentbgcolor;
+            this.containerStyle.backgroundColor = (this.showcontentbg == "true" ? this.contentbgcolor : "#fff");
         },
         contentbgphoto(val){
-            this.containerStyle.backgroundImage = 'url('+this.contentbgphoto+') no-repeat';
+            this.containerStyle.backgroundImage = (this.showcontentbg == "true" ? ('url('+this.contentbgphoto+') no-repeat') : "none");
         },
         contentbgopacity(val){
-            this.containerStyle.opacity =this.contentbgopacity;
+            this.containerStyle.opacity = (this.showcontentbg == "true" ? this.contentbgopacity : "0");
         },
         // titlebg(val){
         //     this.titleStyle.backgroundColor = (val == "true" ? this.titlebgcolor : "#fff");
@@ -287,7 +274,13 @@ export default {
         hidesetconfigcontent(){
             this.showsetconfigflag = false; 
             this.isHover = false; 
+        },
+        getmoduleheight(){
+            return (parseInt(this.height)- parseInt(this.titleheight)-20).toString()
         }
+    },
+    components: {
+        Freecontent
     }
 };
 
@@ -297,10 +290,9 @@ export default {
         margin: 0 auto;
         position: relative;
         .container{
-            width: auto;
             height:100%;
-            padding: 0px;
-            overflow: hidden;
+            width: auto;
+            padding:0px;
             margin: 0 auto;
             position: relative;
             // 内容区样式
@@ -308,47 +300,13 @@ export default {
                 position: relative;
                 width: 100%;
                 height: 100%;
+                padding: 10px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                .empty{
-                    width: 200px;
-                    height: 100px;
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
-                    align-items: center;
-                    cursor: pointer;
-                    .add-modal-btn{
-                        width: 200px;
-                        height:50px;
-                        line-height: 50px;
-                        font-size: 18px;
-                        $btncolor: rgb(156, 156, 156);
-                        color: $btncolor;
-                        border:1px solid $btncolor;
-                        text-align: center;
-                    }
-                    .add-modal-details{
-                        font-size: 14px;
-                        line-height: 50px;
-                        $detailkscolor: rgb(95, 93, 93);
-                        color:$detailkscolor;
-                    }
-                }
-                .empty:hover{
-                    .add-modal-btn{
-                        $backcolor: #5874d8 !global;
-                        background-color: $backcolor;
-                        color: #fff;
-                        border:1px solid #fff;
-                    }
-                }
-                .main{
-                    width: 100%;
-                    height: 100%;
-                }
-                
+            }
+            .content>div:last-child{
+                margin-right: 0px!important;
             }
             // 标题栏样式
             .header{
@@ -365,20 +323,6 @@ export default {
                         vertical-align: middle;
                         font-size: 20px;
                         color: #009fe9;
-                    }
-                    .header-content-subtitle{
-                        font-size: 16px;
-                        height: 100%;
-                        padding-left: 10px;
-                        display: table-cell;
-                        vertical-align: middle;
-                        line-height: 100%;
-                        color: #737373;
-                    }
-                    .header-content-icon{
-                        width: 30px;
-                        height: 100%;
-                        float: left;
                     }
                 }
             } 
@@ -402,7 +346,7 @@ export default {
             }
         }
         .hover:hover{
-            border: 1px dotted #5874d8!important;
+            border: 1px dotted #000!important;
         }
         .setconfig{
             position: absolute;
