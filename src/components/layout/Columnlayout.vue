@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div v-show="!(isempty == 'true')" class="main">
-                    
+                
                 </div>
             </div>
             <!-- 设置图标 -->
@@ -50,15 +50,17 @@ export default {
             isHover: false, //判断鼠标是否移入，显示边框
             showsetconfigflag: false, //判断鼠标是否移入，显示编辑通栏模块
             bodyStyle:{
-                height: this.height
+                height: this.height+'px'
             },
             containerStyle:{     //组件样式
                 height:this.height+'px',
-                border: this.showborder == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff",
-                borderTop: this.bordertop == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
-                borderBottom: this.borderbottom == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
-                backgroundColor: this.showcontentbg == "true" ? this.contentbgcolor : "#fff",
-                backgroundImage: this.showcontentbg == "true" ? ('url('+this.contentbgphoto+') no-repeat') : "none",
+                border: this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor,
+                borderTop: this.bordertop != "false" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
+                borderBottom: this.borderbottom != "false" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor): "1px dotted #fff",
+                borderLeft: "1px dotted #fff",
+                borderRight: "1px dotted #fff",
+                backgroundColor: this.contentbgcolor,
+                backgroundImage: 'url('+this.contentbgphoto+') no-repeat',
             },
             titleStyle:{     //组件内标题样式
                height: this.titleheight+'px',
@@ -82,13 +84,13 @@ export default {
             type: String,     //是否显示标题
             default: 'false'
         },
-        showborder:{
-            type: String,     //组件是否显示边框
-            default: 'false'
-        },
+        // showborder:{
+        //     type: String,     //组件是否显示边框
+        //     default: 'false'
+        // },
         bordercolor:{
             type: String,     //边框颜色
-            default: "#000"
+            default: "#fff"
         },
         borderwidth:{
             type: String,     //边框宽度
@@ -106,17 +108,17 @@ export default {
             type: String,    //下边框
             default: "true"
         },
-        showcontentbg:{
-            type: String,     //是否显示内容区背景
-            default: "false"
-        },
+        // showcontentbg:{
+        //     type: String,     //是否显示内容区背景
+        //     default: "false"
+        // },
         contentbgphoto:{
             type: String,      //内容区背景图片
             default: ""
         },
         contentbgcolor:{
             type: String,     //内容区背景颜色
-            default: "#000"
+            default: "#fff"
         },
         maintitle:{
             type: String,     //主标题
@@ -134,24 +136,26 @@ export default {
     watch:{
         height(val){
             this.containerStyle.height = val;
+            this.contentStyle.height =  Number(this.height)- Number(this.titleheight)+'px';
         },
         contentwidth(val){
             this.contentStyle.width = val;
         },
         titleheight(val){
             this.titleStyle.height = val;
+            this.contentStyle.height =  Number(this.height)- Number(this.titleheight)+'px';
         },
-        showborder(val){
-            this.containerStyle.border = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
-        },
+        // showborder(val){
+        //     this.containerStyle.border = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
+        // },
         borderwidth(val){
-            this.containerStyle.border = (this.showborder == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
+            this.containerStyle.border = this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor;
         },
         borderstyle(val){
-            this.containerStyle.border = (this.showborder == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
+            this.containerStyle.border = this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor;
         },
         bordercolor(val){
-            this.containerStyle.border = (this.showborder == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
+            this.containerStyle.border = this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor;
         },
         bordertop(val){
             this.containerStyle.borderTop = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
@@ -159,9 +163,9 @@ export default {
         borderbottom(val){
             this.containerStyle.borderBottom = (val == "true" ? (this.borderwidth+'px '+this.borderstyle+' '+this.bordercolor) : "1px dotted #fff");
         },
-        showcontentbg(val){
-            this.containerStyle.backgroundColor = (val == "true" ? this.contentbgcolor : "#fff");
-        },
+        // showcontentbg(val){
+        //     this.containerStyle.backgroundColor = (val == "true" ? this.contentbgcolor : "#fff");
+        // },
         contentbgcolor(val){
             this.containerStyle.backgroundColor = (this.showcontentbg == "true" ? this.contentbgcolor : "#fff");
         },
@@ -205,7 +209,6 @@ export default {
             padding: 0px;
             margin: 0 auto;
             width: 100%;
-            overflow: hidden;
             position: relative;
             // 内容区样式
             .content{
@@ -314,6 +317,7 @@ export default {
             right: 0;
             height: 40px;
             width: 200px;
+            z-index: 999999999;
             .setconfigcontent{
                 border-radius: 8px;
                 box-shadow: 0 0 15px 0 rgba(0,0,0,0.20);
