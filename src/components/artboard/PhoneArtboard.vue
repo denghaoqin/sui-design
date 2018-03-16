@@ -7,6 +7,9 @@
                         <div class="panel-heading">
                             <h3>Dropzone {{zone}}</h3>
                         </div>
+                        <list>
+                            <p>asdsad<list></list></p>
+                        </list>
                         <div class="panel-body">
                             <vddl-list class="panel__body--list" :list="list" :inserted="inserted" effect-allowed="move" :external-sources="true">
                                 <list v-for="(item, index) in list" :key="item.id" :item="item" :list="list" :index="index">

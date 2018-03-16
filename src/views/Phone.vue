@@ -6,7 +6,6 @@
             <phone-artboard></phone-artboard>
             <phone-settings></phone-settings>
         </div>
-        <drop></drop>
     </div>
 </template>
 
